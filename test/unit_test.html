@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Unit test</title>
+    <script src="js/myfunctions.js"></script>
+    <script>
+        // *******************************************
+        // checkerArg()
+            // candidates for test
+            let testList = [
+                [1, "number", 0],
+                ["A", "string", 0],
+                [true, "boolean", 0],
+                [1234n, "bigint", 0],
+                [Symbol(), "symbol", 0],
+                [Object(), "object", 0],
+                [1, "string", 110],
+                [1, , 100],
+                [, , 100],
+                [1, "xxxxx", 101]];
+            
+            // auto check
+            let res = []; // results(true or false) will be stored
+            for(let i = 0; i<testList.length; i++){
+                res[i] = checkerArg(testList[i][0], testList[i][1])[1] == testList[i][2]
+            };
+
+            // judge the result
+            if(res.includes(false)){
+                console.log(`failed ${res}`)
+            }
+            else{
+                console.log(`success ${res}`)
+            }
+        // *******************************************
+        
+    console.log(cnvrtDecimal(24, 26, 43.3))
+
+    </script>
+</head>
+<body>    
+</body>
+</html>

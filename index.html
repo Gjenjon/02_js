@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="UTF-8">
+
+<script src="js/exif.js"></script>
+<script src="js/myfunctions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATtoz2AIUgVgN5vNzgYbzyNQLdrjwFJ6E&callback=initMap" async defer></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+<head>
+
+</head>
+
+<body>
+    <div class="field">
+        <div class="field_left">
+            <div class="field_input">
+                <div class="field_input_head">
+                    <div class="field_title">
+                        <span class="input_title"> Your Trip is...</span>
+                    </div>
+                </div>
+                <div class="field_input_middle">
+                    <div class="field_input_left">
+                        <ul>
+                            <li><span>&nbsp; Start &nbsp;</span></li>
+                            <li><span> &nbsp; End &nbsp; &nbsp;</span></li>
+                            <li><span> &nbsp; Image <br></span></li>
+                            <li style="list-style: none;"><span>&nbsp;</span></li>
+                            <li><span> &nbsp; Route <br></span></li>
+                            
+                        </ul>
+                    </div>
+    
+                    <div class="field_input_right">
+                        <ol>
+                            <li style="list-style: none;"><input class="input_date_start" id="input_date_start" type="date"></input></li>
+                            <li style="list-style: none;"><input class="input_date_end" id="input_date_end" type="date"></input></li>
+                            <li style="list-style: none;">
+                                <form action="" enctype="multipart/form-data" name="register" method="post">
+                                    <label>
+                                        <input name="file_input" type="file" id="upFile">
+                                    </label>
+                                        <input type="submit" value="upload" id="uploadFile">
+         
+                                        <!-- <input type="submit" value="アップロード" id="uploadFile"> -->
+                                </form>
+                            </li>
+                            <li style="list-style: none;">
+                                <form action="php/json_up.php" enctype="multipart/form-data" method="post">
+                                    <input name="file_input" type="file" id="upJson" accept=".json">
+                                    <input type="submit" value="upload" id="uploadJson">
+                                </form>
+                            </li>
+                        </ol>                            
+                    </div>
+
+
+                </div>
+                <div class="field_input_bottom">
+                    <span class="prevImage">Preview Image</span>
+
+                    <div class="prevImage" id="preview"></div>
+                    
+                    <input type="button" id="reg" value="Done"/>
+                    
+                </div>            
+
+            </div>
+            
+            <div class="field_record" id="record_history">
+                <div class="field_input_head">
+                    <div class="field_title">
+                        <span class="input_title"> Your Histories...</span>
+                    </div>
+                    <!-- <div class="record" id="record1"></div> -->
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="field_map">
+            <div id="map"></div>
+        </div>
+
+
+    </div>
+    
+
+<script>
+
+
+
+//display the records
+let tmpKeyBox = [];
+for(let i=0; i<localStorage.length; i++){
+    const key = localStorage.key(i);
+    if(key.slice(0, 6) == "record"){
+        tmpKeyBox.push(key.split("_")[0])
+    }
+}
+const tmpSet = new Set(tmpKeyBox);
+const tmpNewKeyBox = [...tmpSet];
+
+for(let i=0; i<tmpNewKeyBox.length; i++){
+        let str = localStorage.getItem(tmpNewKeyBox[i] + "_str");
+        let end = localStorage.getItem(tmpNewKeyBox[i] + "_end");
+        let imgPath = localStorage.getItem(tmpNewKeyBox[i] + "_path").replace(/^.../g, "");
+        console.log(str)
+
+        html = 
+        `<div class="record" id="${tmpNewKeyBox[i]}">
+            <div class=title>&nbsp&nbsp${tmpNewKeyBox[i]}</div>
+            <div class=time>&nbsp&nbspfrom&nbsp;${str}&nbsp;to&nbsp${end}</div>
+
+        
+        </div> 
+        <style>#${tmpNewKeyBox[i]} {
+            background: url(${imgPath});  /* 背景画像指定 */
+            background-repeat:  no-repeat;  /* 背景の繰り返し設定 */
+            background-position: center;    /* 背景の位置指定 */
+            background-size: cover;
+            color: rgb(232, 116, 116);
+            font-style: bold;
+            margin:10px;
+        }</style>` 
+        ;
+        $("#record_history").append(html);
+
+}
+
+// over mouse
+function splitArray(array, part) {
+    var tmp = [];
+    for(var i = 0; i < array.length; i += part) {
+        tmp.push(array.slice(i, i + part));
+    }
+    return tmp;
+}
+
+let keyBox = [];
+for(let i=0; i<localStorage.length; i++){
+    const key = localStorage.key(i);
+    if(key.slice(0, 6) == "record"){
+        keyBox.push(key.split("_")[0])
+    }
+}
+const set = new Set(keyBox);
+const newKeyBox = [...set];
+console.log(newKeyBox)
+
+for (i = 0; i < newKeyBox.length; i++) {
+    let nameRecord = newKeyBox[i];
+    let elem = document.getElementById(nameRecord);
+    elem.addEventListener("mouseover", function () {
+        let loc = localStorage.getItem(nameRecord + "_route").split(',');
+        points = splitArray(loc, 2);
+        console.log( nameRecord+"_path")
+        // initMap(points, nameRecord+"_path", nameRecord+"_img");
+        initMap(points = points, imgPathKey = localStorage.getItem(nameRecord+"_path"), imgKey = localStorage.getItem(nameRecord+"_img"));
+    }, false);
+  }
+
+
+
+// initialted at reload
+let files = document.getElementById("upFile");
+let tmpKey = "tmpLocation"
+let pathKey = "filePath" 
+
+$("#preview").html(`<img src="${localStorage.getItem(pathKey).replace(/^.../g, "")}" alt="" width="50%" height="50%">`);
+
+$("#uploadFile").on("click",function(){
+    localStorage.setItem(tmpKey, "") //reset the localstrage log
+    let file_input = $('#upFile');
+    const file = file_input[0].files[0];
+    console.log(file)
+    // EXIF.getDataでexif情報を解析
+    EXIF.getData(file, function() {
+        let lat = '';
+        let lng = '';
+        lat += EXIF.getTag(this, "GPSLatitude");
+        lng += EXIF.getTag(this, "GPSLongitude");
+        lat = lat.split(",").map(x => Number(x));
+        lng = lng.split(",").map(x => Number(x));
+        let location = [cnvrtDecimal(lat[0], lat[1], lat[2])[1], cnvrtDecimal(lng[0], lng[1], lng[2])[1]];
+        localStorage.setItem(tmpKey, location)
+
+    // start php to store data  
+    //localStorage.setItem(pathkey)="";  
+    document.register.action = "php/file_up.php";
+    document.register.submit(); 
+
+    });
+
+     
+    
+})
+
+// json process
+$("#reg").on("click", function(){
+    // find record number
+    let tmpKeyBox = [];
+    for(let i=0; i<localStorage.length; i++){
+        const key = localStorage.key(i);
+        if(key.slice(0, 6) == "record"){
+            tmpKeyBox.push(key);
+        }
+    }
+    console.log(tmpKeyBox)
+    
+    //create new key name
+    let nameCand = "";
+    for(i=1;i<10000;i++){
+        let nameCands = "record"+i ;
+        console.log(nameCands)
+        if(tmpKeyBox.includes(nameCands + "_img")){
+        }else{
+            nameCand = nameCands;
+            break;
+        }
+    }
+    console.log(nameCand)
+
+    // database management key names
+    let strKey = nameCand + "_str";
+    let endKey = nameCand + "_end";
+    let imgKey = nameCand + "_img";
+    let routeKey = nameCand + "_route";
+    let imgPathKey = nameCand + "_path";
+    console.log(routeKey)
+
+    // relative path for JSON is defined from php/  
+    url = localStorage.getItem("jsonPath").replace(/^.../g, "");
+
+    // take JSON file to add . to the serise of number of longitude and latitude
+    $.getJSON(url, (data) => {
+        let points = [];
+        for(let i = 0; i<data.locations.length; i++){
+            points[i] = [data.locations[i].latitudeE7, data.locations[i].longitudeE7].map(x => Number(x.toString().substr(0, x.toString().length - 7) + "." + x.toString().substr(x.toString().length - 7, 7)));
+        };
+        localStorage.setItem(routeKey, points);
+        localStorage.setItem(strKey, document.getElementById("input_date_start").value);
+        localStorage.setItem(endKey, document.getElementById("input_date_end").value); 
+        localStorage.setItem(imgKey, localStorage.getItem(tmpKey));  
+        localStorage.setItem(imgPathKey, localStorage.getItem(pathKey));   
+        initMap(points = points, imgPathKey = localStorage.getItem(imgPathKey), imgKey = localStorage.getItem(imgKey));
+    });
+
+    
+
+});
+
+
+// map
+function initMap(points=[[35.681298, 139.766247], [35.681298, 139.766247], imgPathKey="", imgKey=""]) {
+    // マップの生成
+    var map = new google.maps.Map(document.getElementById("map"), {
+        center: new google.maps.LatLng(points[0][0], points[0][1]), // マップの中心
+        zoom: 12, // ズームレベル
+        styles: [
+        //全てのラベルを非表示
+        {
+            featureType: 'all',
+            elementType: 'labels',
+            stylers: [
+            {visibility: 'off'},
+            ],
+        },
+        //「poi=観光スポットや施設など」のアイコンのみ再表示
+        {
+            featureType: 'poi',
+            elementType: 'labels.icon',
+            stylers: [
+            {visibility: 'inherit'},
+            ],
+        },
+        //地図全体の色味をカスタマイズ
+        //基本色を赤に統一 + 彩度を落とす
+        {
+            featureType: 'all',
+            elementType: 'all',
+            stylers: [
+            {hue: '#b40000'},
+            {saturation : -50},
+            ],
+        }
+        ]
+    });
+
+    // 地点を分割してルート検索を行います。
+
+    var d = new google.maps.DirectionsService(); // ルート検索オブジェクト
+    var origin = null, waypoints = [], dest = null; // 出発地、経由地、目的地
+    var resultMap = {}; // 分割してルート検索した結果データ
+    var requestIndex = 0; // 検索番号
+    var done = 0; // ルート検索が完了した数
+    for (var i = 0, len = points.length; i < len; i++) {
+        // 最初の場合、originに値をセット
+        if (origin == null) {
+            //origin = points[i];
+            origin = new google.maps.LatLng(points[i][0],points[i][1]);
+        }
+        // 経由地が8つたまったか最後の地点の場合、ルート検索
+        else if (waypoints.length == 8 || i == len - 1) {
+            //dest = points[i];
+            dest = new google.maps.LatLng(points[i][0],points[i][1]);
+
+            (function(index){
+                // ルート検索の条件
+                var request = {
+                    origin: origin, // 出発地
+                    destination: dest, // 目的地
+                    waypoints: waypoints, // 経由地
+                    travelMode: google.maps.DirectionsTravelMode.WALKING, // 交通手段(歩行。DRIVINGの場合は車)
+                };
+                //console.log(request);
+                // ルート検索
+                d.route(request, function(result, status){
+                    // OKの場合ルートデータ保持
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        resultMap[index] = result; // 並行でリクエストするので配列だとリクエスト順とずれる場合があります
+                        done++;
+                    }
+                    else {
+                        console.log(status); // デバッグ
+                    }
+                });
+            })(requestIndex);
+
+            requestIndex++;
+            //origin = points[i]; 
+            // 今回の目的地を次回の出発地にします。
+            origin = new google.maps.LatLng(points[i][0],points[i][1]);
+
+            waypoints = [];
+        }
+        // 上記以外、waypointsに地点を追加
+        else {
+            //waypoints.push({ location: points[i], stopover: true });
+            waypoints.push({ location: new google.maps.LatLng(points[i][0],points[i][1]), stopover: true });            
+        }
+    }
+
+    // マーカーを表示する場合の準備
+    var infoWindow = new google.maps.InfoWindow();
+    var mark = function(position, content) {
+        var marker = new google.maps.Marker({
+            map: map, // 描画先の地図
+            position: position, // 座標
+            icon: {
+                url: "img/marker.png",
+                scaledSize: new google.maps.Size(60, 60) 
+            }
+        });
+        // クリック時吹き出しを表示
+        marker.addListener("click", function(){
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+        });
+    };
+
+    // maker for photo
+    var markPhoto = function(position, content) {
+        var marker = new google.maps.Marker({
+            map: map, // 描画先の地図
+            position: position, // 座標
+            icon: {
+                url: "img/marker.png",
+                scaledSize: new google.maps.Size(60, 60) 
+            }
+        });
+        // クリック時吹き出しを表示
+        marker.addListener("click", function(){
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+        });
+    };
+
+    var sid = setInterval(function(){
+        // 分割したすべての検索が完了するまで待ちます。
+        if (requestIndex > done) return;
+        clearInterval(sid);
+
+        // すべての結果のルート座標を順番に取得して平坦な配列にします。
+        var path = [];
+        var result;
+        for (var i = 0, len = requestIndex; i < len; i++) {
+            result = resultMap[i]; // 検索結果
+            var legs = result.routes[0].legs; // Array<DirectionsLeg>
+            for (var li = 0, llen = legs.length; li < llen; li++) {
+                var leg = legs[li]; // DirectionLeg
+                var steps = leg.steps; // Array<DirectionsStep>
+                // DirectionsStepが持っているpathを取得して平坦(2次元配列→1次元配列)にします。
+                var _path = steps.map(function(step){ return step.path })
+                    .reduce(function(all, paths){ return all.concat(paths) });
+                path = path.concat(_path);
+
+                // マーカーが必要ならマーカーを表示します。
+                //mark(leg.start_location, leg.start_address);
+            }
+        }
+        // マーカーが必要ならマーカーを表示します。(最終)
+        var endLeg = result.routes[0].legs[result.routes[0].legs.length-1];
+        //mark(endLeg.end_location, endLeg.end_address);
+
+        //mark for photo
+        console.log(imgKey)
+        if(imgKey==""){            
+        }else{
+            let latLngPhoto = new google.maps.LatLng(imgKey.split(",").map(x => Number(x))[0],imgKey.split(",").map(x => Number(x))[1]);
+            markPhoto(latLngPhoto, `<img src="${imgPathKey.replace(/^.../g, "")}" alt="" width="50%" height="50%">`);
+        };
+        
+
+        // パスを描画します。
+        var line = new google.maps.Polyline({
+            map: map, // 描画先の地図
+            strokeColor: "#2196f3", // 線の色
+            strokeOpacity: 0.8, // 線の不透明度
+            strokeWeight: 6, // 先の太さ
+            path: path // 描画するパスデータ
+        });
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

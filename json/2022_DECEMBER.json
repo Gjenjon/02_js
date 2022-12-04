@@ -1,0 +1,151 @@
+{
+  "timelineObjects": [{
+    "placeVisit": {
+      "location": {
+        "placeId": "ChIJH8pt_2eJGGARx2t40hYk2bE",
+        "address": "日本、〒104-0033 東京都中央区新川",
+        "name": "2 Chome",
+        "locationConfidence": 100.0,
+        "calibratedProbability": 100.0
+      },
+      "duration": {
+        "startTimestamp": "2022-12-04T00:18:13.565Z",
+        "endTimestamp": "2022-12-04T00:32:15Z"
+      },
+      "placeConfidence": "USER_CONFIRMED",
+      "visitConfidence": 100,
+      "otherCandidateLocations": [{
+        "latitudeE7": 356734297,
+        "longitudeE7": 1397828454,
+        "placeId": "ChIJY-v48nWJGGAR-DY5TQTx-_s",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２８−２ メディカルプライム新川 4階",
+        "name": "東京八丁堀皮膚科・形成外科",
+        "sourceInfo": {
+          "deviceTag": 1760360146
+        },
+        "locationConfidence": 58.582233,
+        "calibratedProbability": 46.287106
+      }, {
+        "latitudeE7": 356734825,
+        "longitudeE7": 1397827961,
+        "placeId": "ChIJ-yf042eJGGARNB1oaARW_ME",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２８−１",
+        "name": "FamilyMart",
+        "locationConfidence": 11.137248,
+        "calibratedProbability": 8.799784
+      }, {
+        "latitudeE7": 356729345,
+        "longitudeE7": 1397841751,
+        "placeId": "ChIJlbOUZWiJGGARoU3f9hA0lms",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２７−４",
+        "name": "リバーシティ21新川",
+        "locationConfidence": 5.3631454,
+        "calibratedProbability": 4.237539
+      }, {
+        "latitudeE7": 356735923,
+        "longitudeE7": 1397844476,
+        "placeId": "ChIJq47tamiJGGARJCmSweUj_SY",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２７−１",
+        "name": "Tokyo Sumitomo Twin Building East",
+        "locationConfidence": 3.4646928,
+        "calibratedProbability": 2.7375298
+      }, {
+        "latitudeE7": 356734022,
+        "longitudeE7": 1397832142,
+        "placeId": "ChIJ83-BBGiJGGARN49W7qfRj28",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２７",
+        "name": "Sumitomo Twin Biru",
+        "locationConfidence": 3.0258024,
+        "calibratedProbability": 2.3907528
+      }, {
+        "latitudeE7": 356729020,
+        "longitudeE7": 1397832248,
+        "placeId": "ChIJyWutd2iJGGARFKgcy3WB3Gg",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２９−３",
+        "name": "Grand Palace Tokyo Yaesu Avenue",
+        "locationConfidence": 2.7387965,
+        "calibratedProbability": 2.163983
+      }, {
+        "latitudeE7": 356731628,
+        "longitudeE7": 1397830638,
+        "placeId": "ChIJsTPb91eJGGARn_GZ282XafE",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２９−２",
+        "name": "i-SuiteShinkawa",
+        "locationConfidence": 1.7871529,
+        "calibratedProbability": 1.4120686
+      }, {
+        "latitudeE7": 356734197,
+        "longitudeE7": 1397822004,
+        "placeId": "ChIJySZt7meJGGARobSxDtRY2Ac",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２１−１０",
+        "name": "Rico\u0027s Supermarket",
+        "locationConfidence": 1.0790329,
+        "calibratedProbability": 0.8525675
+      }, {
+        "latitudeE7": 356734514,
+        "longitudeE7": 1397833174,
+        "placeId": "ChIJVwBLC2iJGGAR-MQD9q8ONBk",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２７−５",
+        "name": "パークハウスエスプラナード",
+        "locationConfidence": 1.0663794,
+        "calibratedProbability": 0.8425697
+      }, {
+        "latitudeE7": 356729943,
+        "longitudeE7": 1397839798,
+        "placeId": "ChIJNf1nb2iJGGARRbsirub4c1I",
+        "address": "日本、〒104-0033 東京都中央区新川２丁目２７−３",
+        "name": "中央区立特別養護老人ホーム マイホーム新川",
+        "locationConfidence": 1.0082561,
+        "calibratedProbability": 0.7966452
+      }],
+      "editConfirmationStatus": "CONFIRMED",
+      "locationConfidence": 100,
+      "placeVisitType": "SINGLE_PLACE",
+      "locationAssertionType": "WITHIN_OR_AT",
+      "lastEditedTimestamp": "2022-12-04T00:32:16.102Z",
+      "placeVisitImportance": "MAIN",
+      "checkin": {
+        "atTime": "2022-12-04T00:32:15Z",
+        "device": {
+        }
+      },
+      "editActionMetadata": {
+        "placeVisitSegment": {
+          "location": {
+            "placeId": "ChIJH8pt_2eJGGARx2t40hYk2bE",
+            "address": "日本、〒104-0033 東京都中央区新川",
+            "name": "2 Chome",
+            "locationConfidence": 58.582233
+          }
+        },
+        "editHistory": {
+          "editEvent": [{
+            "editOperation": ["CONFIRM"],
+            "uiConfiguration": {
+              "uiPlaceVisitConfiguration": "FORCED_NEIGHBORHOOD"
+            }
+          }]
+        },
+        "originalCandidates": {
+          "placeVisitSegment": {
+            "placeVisitCandidate": [{
+              "location": {
+                "placeId": "ChIJY-v48nWJGGAR-DY5TQTx-_s",
+                "address": "日本、〒104-0033 東京都中央区新川２丁目２８−２ メディカルプライム新川 4階",
+                "name": "東京八丁堀皮膚科・形成外科",
+                "locationConfidence": 58.582233
+              }
+            }, {
+              "location": {
+                "placeId": "ChIJ-yf042eJGGARNB1oaARW_ME",
+                "address": "日本、〒104-0033 東京都中央区新川２丁目２８−１",
+                "name": "FamilyMart",
+                "locationConfidence": 11.137248
+              }
+            }]
+          }
+        }
+      }
+    }
+  }]
+}

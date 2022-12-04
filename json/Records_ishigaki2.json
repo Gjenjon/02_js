@@ -1,0 +1,68 @@
+{
+    "locations": [{
+        "latitudeE7": 243765290,
+        "longitudeE7": 1242468500,
+        "accuracy": "",
+        "altitude": "",
+        "verticalAccuracy": "",
+        "deviceTag": "",
+        "platformType": "IOS",
+        "serverTimestamp": "",
+        "deviceTimestamp": "",
+        "batteryCharging": false,
+        "formFactor": "PHONE",
+        "timestamp":""
+    }, {
+        "latitudeE7": 243605000,
+        "longitudeE7": 1242461700,
+        "accuracy": "",
+        "altitude": "",
+        "verticalAccuracy": "",
+        "deviceTag": "",
+        "platformType": "IOS",
+        "serverTimestamp": "",
+        "deviceTimestamp": "",
+        "batteryCharging": false,
+        "formFactor": "PHONE",
+        "timestamp":""
+    }, {
+        "latitudeE7": 243516880,
+        "longitudeE7": 1242325100,
+        "accuracy": "",
+        "altitude": "",
+        "verticalAccuracy": "",
+        "deviceTag": "",
+        "platformType": "IOS",
+        "serverTimestamp": "",
+        "deviceTimestamp": "",
+        "batteryCharging": false,
+        "formFactor": "PHONE",
+        "timestamp":""
+    }, {
+        "latitudeE7": 243585520,
+        "longitudeE7": 1242115590,
+        "accuracy": "",
+        "altitude": "",
+        "verticalAccuracy": "",
+        "deviceTag": "",
+        "platformType": "IOS",
+        "serverTimestamp": "",
+        "deviceTimestamp": "",
+        "batteryCharging": false,
+        "formFactor": "PHONE",
+        "timestamp": ""
+    }, {
+        "latitudeE7": 244249870,
+        "longitudeE7": 1242121620,
+        "accuracy": "",
+        "altitude": "",
+        "verticalAccuracy": "",
+        "deviceTag": "",
+        "platformType": "IOS",
+        "serverTimestamp": "",
+        "deviceTimestamp": "",
+        "batteryCharging": false,
+        "formFactor": "PHONE",
+        "timestamp":""
+        }]
+}

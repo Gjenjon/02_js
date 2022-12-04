@@ -1,0 +1,29 @@
+{
+  "locations": [{
+    "latitudeE7": 356732838,
+    "longitudeE7": 1397834126,
+    "accuracy": 39,
+    "altitude": 61,
+    "verticalAccuracy": 16,
+    "deviceTag": 1760360146,
+    "platformType": "IOS",
+    "serverTimestamp": "2022-12-04T00:18:16.229Z",
+    "deviceTimestamp": "2022-12-04T00:18:16.100Z",
+    "batteryCharging": false,
+    "formFactor": "PHONE",
+    "timestamp": "2022-12-04T00:18:13.565Z"
+  }, {
+    "latitudeE7": 356737165,
+    "longitudeE7": 1397829587,
+    "accuracy": 35,
+    "altitude": 12,
+    "verticalAccuracy": 15,
+    "deviceTag": 1760360146,
+    "platformType": "IOS",
+    "serverTimestamp": "2022-12-04T00:29:19.668Z",
+    "deviceTimestamp": "2022-12-04T00:29:19.481Z",
+    "batteryCharging": false,
+    "formFactor": "PHONE",
+    "timestamp": "2022-12-04T00:29:18.291Z"
+  }]
+}
